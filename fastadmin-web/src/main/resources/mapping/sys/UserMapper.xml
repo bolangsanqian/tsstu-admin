@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastadmin.modules.sys.repository.UserMapper">
+  <resultMap id="BaseResultMap" type="com.fastadmin.modules.sys.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <!-- 列表查询 -->
+  <select id="getList" resultMap="BaseResultMap">
+    select
+      user_id,
+      username,
+      nickname,
+      realname,
+      mobile,
+      email,
+      password,
+      salt,
+      type,
+      status,
+      create_by,
+      create_time,
+      remark
+    from sys_user
+    <where>
+      <if test="keywords!= null and keywords != ''">
+        and (
+          username like CONCAT(CONCAT('%', #{keywords }),'%')
+          or nickname like CONCAT(CONCAT('%', #{keywords }),'%')
+          or realname like CONCAT(CONCAT('%', #{keywords }),'%')
+          or mobile like CONCAT(CONCAT('%', #{keywords }),'%')
+        )
+      </if>
+      <if test="username != null and username != ''">
+        and username = #{username}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        and nickname = #{nickname}
+      </if>
+      <if test="realname != null and realname != ''">
+        and realname = #{realname}
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile}
+      </if>
+      <if test="email != null and email != ''">
+        and email = #{email}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="createTimeBegin != null and createTimeBegin != ''">
+        and create_time &gt;= #{createTimeBegin}
+      </if>
+      <if test="createTimeEnd != null and createTimeEnd != ''">
+        and create_time &lt;= #{createTimeEnd}
+      </if>
+    </where>
+    ORDER BY create_time DESC
+  </select>
+
+  <!-- 唯一查询 -->
+  <select id="getOne" resultMap="BaseResultMap">
+    select
+      user_id,
+      username,
+      nickname,
+      realname,
+      mobile,
+      email,
+      password,
+      salt,
+      type,
+      status,
+      create_by,
+      create_time,
+      remark
+    from sys_user
+    <where>
+      <if test="id != null">
+        and user_id = #{id}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId}
+      </if>
+      <if test="username != null and username != ''">
+        and username = #{username}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        and nickname = #{nickname}
+      </if>
+      <if test="realname != null and realname != ''">
+        and realname = #{realname}
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile}
+      </if>
+      <if test="email != null and email != ''">
+        and email = #{email}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <!-- 查询条数 -->
+  <select id="count">
+    select
+      count(1)
+    from sys_user
+    <where>
+      <if test="username != null and username != ''">
+        and username = #{username}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        and nickname = #{nickname}
+      </if>
+      <if test="realname != null and realname != ''">
+        and realname = #{realname}
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile}
+      </if>
+      <if test="email != null and email != ''">
+        and email = #{email}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </where>
+  </select>
+
+  <!-- 添加 -->
+  <insert id="add" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null">username,</if>
+      <if test="nickname != null">nickname,</if>
+      <if test="realname != null">realname,</if>
+      <if test="mobile != null">mobile,</if>
+      <if test="email != null">email,</if>
+      <if test="password != null">password,</if>
+      <if test="salt != null">salt,</if>
+      <if test="type != null">type,</if>
+      <if test="status != null">status,</if>
+      <if test="createBy != null">create_by,</if>
+      <if test="createTime != null">create_time,</if>
+      <if test="remark != null">remark,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null">#{username, jdbcType=VARCHAR},</if>
+      <if test="nickname != null">#{nickname, jdbcType=VARCHAR},</if>
+      <if test="realname != null">#{realname, jdbcType=VARCHAR},</if>
+      <if test="mobile != null">#{mobile, jdbcType=NUMERIC},</if>
+      <if test="email != null">#{email, jdbcType=NUMERIC},</if>
+      <if test="password != null">#{password, jdbcType=VARCHAR},</if>
+      <if test="salt != null">#{salt, jdbcType=VARCHAR},</if>
+      <if test="type != null">#{type, jdbcType=VARCHAR},</if>
+      <if test="status != null">#{status, jdbcType=INTEGER},</if>
+      <if test="createBy != null">#{createBy, jdbcType=INTEGER},</if>
+      <if test="createTime != null">#{createTime, jdbcType=TIMESTAMP},</if>
+      <if test="remark != null">#{remark, jdbcType=TIMESTAMP},</if>
+    </trim>
+  </insert>
+
+  <!-- 修改 -->
+  <update id="update">
+    update
+      sys_user
+    set
+    <trim suffixOverrides="," >
+      <if test="username != null">username = #{username, jdbcType=VARCHAR},</if>
+      <if test="nickname != null">nickname = #{nickname, jdbcType=VARCHAR},</if>
+      <if test="realname != null">realname = #{realname, jdbcType=VARCHAR},</if>
+      <if test="mobile != null">mobile = #{mobile, jdbcType=NUMERIC},</if>
+      <if test="email != null">email = #{email, jdbcType=NUMERIC},</if>
+      <if test="password != null">password = #{password, jdbcType=VARCHAR},</if>
+      <if test="salt != null">salt = #{salt, jdbcType=VARCHAR},</if>
+      <if test="type != null">type = #{type, jdbcType=VARCHAR},</if>
+      <if test="status != null">status = #{status, jdbcType=INTEGER},</if>
+      <if test="createBy != null">create_by = #{createBy, jdbcType=INTEGER},</if>
+      <if test="createTime != null">create_time = #{createTime, jdbcType=TIMESTAMP},</if>
+      <if test="remark != null">remark = #{remark, jdbcType=TIMESTAMP},</if>
+    </trim>
+    where
+      user_id = #{userId}
+  </update>
+
+  <!-- 根据id删除 -->
+  <delete id="delete"  parameterType="Integer">
+    delete from
+      sys_role
+    where
+      user_id = #{id}
+  </delete>
+
+  <!-- 批量删除 -->
+  <delete id="deleteList">
+    delete from
+      sys_user
+    where
+      user_id in
+    <foreach item="id" collection="list" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <!-- 判断是否重复 -->
+  <select id="exist" resultType="boolean">
+    select
+      count(1)
+    from sys_user
+    <where>
+      <if test="id != null">
+        and user_id&lt;&gt;#{id}
+      </if>
+      <if test="userId != null">
+        and user_id&lt;&gt;#{userId}
+      </if>
+      <if test="username != null and username != ''">
+        and username = #{username}
+      </if>
+      <if test="nickname != null and nickname != ''">
+        and nickname = #{nickname}
+      </if>
+      <if test="realname != null and realname != ''">
+        and realname = #{realname}
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile = #{mobile}
+      </if>
+      <if test="email != null and email != ''">
+        and email = #{email}
+      </if>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+    </where>
+  </select>
+</mapper>

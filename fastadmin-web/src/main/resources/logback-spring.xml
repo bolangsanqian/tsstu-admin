@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="LOG_FILE" source="spring.application.name"></springProperty>
+    <springProperty scope="context" name="LOG_DIR" source="logging.path"></springProperty>
+    <springProperty scope="context" name="LOG_LEVEL" source="logging.level.root"></springProperty>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] %logger{50}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${LOG_FILE}.%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>50MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] %logger{50}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <!--<logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache" level="INFO"/>
+    <logger name="org.springboot" level="INFO"/>
+    <logger name="org.hibernate" level="INFO"/>
+    <logger name="springfox" level="INFO"/>
+    <logger name="com.alibaba.druid" level="INFO"/>
+    <logger name="com.springboot.demo" level="INFO"/>-->
+</configuration>

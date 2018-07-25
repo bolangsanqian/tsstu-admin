@@ -1,0 +1,70 @@
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <!-- Loading Bootstrap -->
+    <link href="/css/backend.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var require = {
+            config: {
+                "site": {
+                    "name": "FastAdmin",
+                    "cdnurl": "https://cdn.demo.fastadmin.net",
+                    "version": "1.0.19",
+                    "timezone": "Asia/Shanghai",
+                    "languages": {"backend": "zh-cn", "frontend": "zh-cn"}
+                },
+                "upload": {
+                    "cdnurl": "https://cdn.demo.fastadmin.net",
+                    "uploadurl": "https://v0.api.upyun.com/fastadmin-demo",
+                    "bucket": "fastadmin-demo",
+                    "maxsize": "10M",
+                    "mimetype": "*",
+                    "multipart": {
+                        "policy": "eyJidWNrZXQiOiJmYXN0YWRtaW4tZGVtbyIsInNhdmUta2V5IjoiXC91cGxvYWRzXC97eWVhcn17bW9ufXtkYXl9XC97ZmlsZW1kNX17LnN1ZmZpeH0iLCJleHBpcmF0aW9uIjoxNTI2NTI0NTc0LCJub3RpZnktdXJsIjoiaHR0cDpcL1wvZGVtby5mYXN0YWRtaW4ubmV0XC9hZGRvbnNcL3VweXVuXC9pbmRleFwvbm90aWZ5In0=",
+                        "signature": "0bb008a413084db48caa8e475653ecdd",
+                        "bucket": "fastadmin-demo",
+                        "save-key": "/uploads/{year}{mon}{day}/{filemd5}{.suffix}",
+                        "expiration": 1526524574,
+                        "notify-url": "http://demo.fastadmin.net/addons/upyun/index/notify",
+                        "ext-param": "1_0"
+                    },
+                    "multiple": "0"
+                },
+                "modulename": "admin",
+                "controllername": "index",
+                "actionname": "index",
+                "jsname": "backend/index",
+                "moduleurl": "/admin",
+                "language": "zh-cn",
+                "fastadmin": {
+                    "usercenter": true,
+                    "login_captcha": false,
+                    "login_failure_retry": false,
+                    "login_unique": false,
+                    "login_background": "/assets/img/loginbg.jpg",
+                    "multiplenav": false,
+                    "checkupdate": false,
+                    "version": "1.0.0.20180513_beta",
+                    "api_url": "https://api.fastadmin.net"
+                },
+                //"referer": "/admin/blog/post",
+                "__PUBLIC__": "/",
+                "__ROOT__": "/",
+                "__CDN__": "https://cdn.demo.fastadmin.net"
+            }
+        };
+    </script>
+
+    <style>
+        .form-group {
+            margin-bottom: 25px;
+        }
+    </style>

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    initialSize: 10
+    maxActive: 100
+    maxPoolPreparedStatementPerConnectionSize: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 10
+    poolPreparedStatements: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    url:   jdbc:mysql://127.0.0.1:3306/db_fastadmin?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=true
+    username: root
+    password: 123456
+    validationQuery: "SELECT 1 FROM DUAL"
+  platdatasource:
+    initialSize: 10
+    maxActive: 100
+    maxPoolPreparedStatementPerConnectionSize: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 10
+    poolPreparedStatements: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    url: jdbc:mysql://127.0.0.1:3306/db_fastadmin_plat?allowMultiQueries=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=true
+    username: root
+    password: 123456
+    validationQuery: "SELECT 1 FROM DUAL"
