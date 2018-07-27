@@ -49,34 +49,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form', 'vue', 'common'], fun
             Form.api.bindevent($("form[role=form]"));
         },
         edit: function () {
-            var vm = new Vue({
-                el: "#main",
-                data: {
-                    row: {}
-                },
-                beforeCreate: function() {
-                    var id = Common.urlParam("id")
-                    loadDetail(id);
-                },
-                mounted: function () {
-                    Form.api.bindevent($("form[role=form]"));
-                },
-                methods: {
-
-                }
-            });
-
-            function loadDetail(id) {
-                var url = "/sys/admin/detail/" + id
-                $.getJSON(url, {}, function (ret) {
-                    if (ret.ok) {
-                        vm.row = ret.data;
-                    } else {
-                        Toastr.error(ret.msg);
-                    }
-                });
-            }
-
+            Form.api.bindevent($("form[role=form]"));
         }
     };
     return Controller;
