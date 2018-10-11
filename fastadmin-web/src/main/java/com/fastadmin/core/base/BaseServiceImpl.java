@@ -42,7 +42,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     @Override
     public int delete(Object id) {
-        return this.getDao().delete(id);
+        return this.delete("id", id);
     }
 
     @Override
@@ -62,6 +62,32 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         Map<String, Object> condition = new HashMap<>();
         condition.put(key, value);
         condition.put(key2, value2);
+        return this.delete(condition);
+    }
+
+    @Override
+    public int delete(Object ... keyValues) {
+        if (null == keyValues || keyValues.length <= 0) {
+            return 0;
+        }
+        Map<String, Object> condition = new HashMap<>();
+        String key = null;
+        Object value = null;
+        for (int i=0; i<keyValues.length; i++) {
+            Object k = keyValues[i];
+            if (i % 2 != 0) {
+                if (null == k || k.toString().trim().length() <=0) {
+                    i++;
+                    key = null;
+                    value = null;
+                    continue;
+                }
+                key = k.toString().trim();
+            } else {
+                value = keyValues[i];
+                condition.put(key, value);
+            }
+        }
         return this.delete(condition);
     }
 

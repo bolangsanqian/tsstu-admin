@@ -1,6 +1,7 @@
 define(['jquery', 'bootstrap', 'backend', 'addtabs', 'adminlte', 'form'], function ($, undefined, Backend, undefined, AdminLTE, Form) {
     var Controller = {
         index: function () {
+            this.loadMenu();
             //窗口大小改变,修正主窗体最小高度
             $(window).resize(function () {
                 $(".tab-addtabs").css("height", $(".content-wrapper").height() + "px");
@@ -484,6 +485,48 @@ define(['jquery', 'bootstrap', 'backend', 'addtabs', 'adminlte', 'form'], functi
                 }));
                 location.href = Backend.api.fixurl(data.url);
             });
+        },
+        loadMenu: function () {
+            $.getJSON("/sys/menu/tree", function (json) {
+                if (json.ok) {
+                    var html = Controller.buildMenu(json.data);
+                    $(".sidebar-menu").append(html);
+                }
+            })
+        },
+        buildMenu: function (menus, parent) {
+            var html = "";
+            for (var i=0; i<menus.length; i++) {
+                var menu = menus[i]
+                var li_class = "";
+                var li_right_icon = "";
+                var url = menu.url;
+                if (menu.type == 0) {
+                    li_class = 'treeview';
+                    li_right_icon = '<i class="fa fa-angle-left"></i>';
+                    url = 'javascript:void(0);';
+                }
+                html += '\n' +
+                '<li class="' + li_class + '">\n' +
+                '    <a href="#" addtabs="' + i + '" url="' + url + '" py="kzt" pinyin="kongzhitai">\n' +
+                '        <i class="fa fa-dashboard"></i>\n' +
+                '        <span>' + menu.name + '</span>\n' +
+                '        <span class="pull-right-container">\n' +
+                '            \n' + li_right_icon +
+                '        </span>\n' +
+                '    </a>\n';
+                if (null != menu.subMenuList && menu.subMenuList.length > 0) {
+                    var subHtml = Controller.buildMenu(menu.subMenuList, menu);
+                    if (subHtml) {
+                        html += subHtml;
+                    }
+                }
+                html += '</li>';
+            }
+            if (parent != null) {
+                html = '<ul class="treeview-menu">\n' + html + '\n</ul>';
+            }
+            return html;
         }
     };
 

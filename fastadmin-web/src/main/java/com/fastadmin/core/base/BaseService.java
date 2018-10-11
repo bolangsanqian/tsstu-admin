@@ -28,6 +28,8 @@ public interface BaseService<T> {
 
     int delete(String key, Object value, String key2, Object value2);
 
+    int delete(Object ... keyValues);
+
     int deleteList(Object[] ids);
 
     int deleteList(List<Object> idList);

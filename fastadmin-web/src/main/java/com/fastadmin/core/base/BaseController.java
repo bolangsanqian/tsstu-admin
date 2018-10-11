@@ -34,6 +34,10 @@ public abstract class BaseController<T> {
 
     @RequestMapping(value = "{path}.html")
     public String location2(HttpServletRequest request) {
+        String ref = request.getParameter("ref");
+        if ("addtabs".equals(ref)) {
+            return "redirect:/index";
+        }
         String path = request.getServletPath();
         return path.substring(0, path.indexOf("."));
     }
