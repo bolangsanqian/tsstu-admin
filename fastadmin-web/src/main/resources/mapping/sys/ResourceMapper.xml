@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastadmin.modules.sys.repository.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.fastadmin.modules.sys.entity.Resource">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="permission_tag" jdbcType="VARCHAR" property="permissionTag" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="label_tag" jdbcType="VARCHAR" property="labelTag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    resource_id, parent_id, type, name, code, permission_tag, url, icon, status, remark, 
+    sort, label_tag
+  </sql>
+
+  <!-- 列表查询 -->
+  <select id="getList" resultMap="BaseResultMap">
+    select
+      resource_id,
+      parent_id,
+      type,
+      name,
+      code,
+      permission_tag,
+      url,
+      icon,
+      remark,
+      sort,
+      label_tag
+    from sys_resource
+    <where>
+      <if test="keywords!= null and keywords != ''">
+        and (
+          name like CONCAT(CONCAT('%', #{keywords }),'%')
+          or remark like CONCAT(CONCAT('%', #{keywords }),'%')
+        )
+      </if>
+      <if test="name != null and name != ''">
+        and name = #{name}
+      </if>
+      <if test="type != null">
+        and type = #{type}
+      </if>
+      <if test="code != null and code != ''">
+        and code = #{code}
+      </if>
+    </where>
+    ORDER BY type, sort
+  </select>
+</mapper>
